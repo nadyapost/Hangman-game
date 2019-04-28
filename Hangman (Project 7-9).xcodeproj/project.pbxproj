@@ -85,9 +85,9 @@
 		136C0DCC226D6CF7004F2ADF /* Hangman (Project 7-9) */ = {
 			isa = PBXGroup;
 			children = (
-				136C0DF1226DDEA9004F2ADF /* HangManImage.swift */,
 				136C0DCF226D6CF7004F2ADF /* MainViewController.swift */,
 				136C0DF5226F3651004F2ADF /* Game.swift */,
+				136C0DF1226DDEA9004F2ADF /* HangManImage.swift */,
 				136C0DCD226D6CF7004F2ADF /* AppDelegate.swift */,
 				136C0DD1226D6CF7004F2ADF /* Main.storyboard */,
 				136C0DD4226D6CF9004F2ADF /* Assets.xcassets */,

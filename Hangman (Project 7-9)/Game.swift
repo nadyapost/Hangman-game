@@ -13,9 +13,17 @@ class Game {
   var word: String
   var enteredLetters: Set<String> = []
   var wrongAnswers = 0
+  var score: Int {
+    didSet {
+      score = enteredLetters.count
+    }
+  }
+
   
-  init(_ word: String = "") {
+  init(_ word: String = "", score: Int = 0) {
     self.word = word
+    self.score = score
+
   }
 
   func addHint() -> String {
@@ -34,6 +42,7 @@ class Game {
   func checkLetter(_ charecter: String) -> Bool {
     if word.contains(charecter) {
       enteredLetters.insert(charecter)
+      score = enteredLetters.count
       return true
     } else {
       wrongAnswers += 1

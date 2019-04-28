@@ -67,23 +67,28 @@ class MainViewController: UIViewController {
           let action = UIAlertAction(title: "Ok", style: .default)
           ac.addAction(action)
           present(ac, animated: true)
+          self.navigationItem.rightBarButtonItem?.isEnabled = false
         }
-        
       } else {
         if currentWord.gameWon() {
           let ac = UIAlertController(title: "Congratulations", message: "You guessed the word", preferredStyle: .alert)
           let action = UIAlertAction(title: "Ok", style: .default)
           ac.addAction(action)
           present(ac, animated: true)
+          self.navigationItem.rightBarButtonItem?.isEnabled = false
         }
       }
-      title = currentWord.addHint()
     }
+    title = currentWord.addHint()
+    scoreLable.text = "Score: \(currentWord.score)"
   }
   
   @objc func startGame() {
     hangMan = HangManImage(bodyParts: [rope, head, body, rightArm, leftArm, rightLeg, leftLeg])
-    currentWord = Game(allWords.randomElement() ?? "No word found")
+    currentWord = Game(allWords.randomElement()?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "No word found")
+    
+    print(currentWord.word)
+    
     title = currentWord.addHint()
     scoreLable.text = "Score: \(currentWord.score)"
   }
