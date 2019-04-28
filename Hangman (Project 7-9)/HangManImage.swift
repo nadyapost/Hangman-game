@@ -14,6 +14,9 @@ class HangManImage {
   
   init(bodyParts: [UIImageView] = []) {
     self.bodyParts = bodyParts
+    for part in bodyParts {
+      part.isHidden = true
+    }
   }
   
   func showBodyPart() {

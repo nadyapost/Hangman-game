@@ -13,8 +13,9 @@ class MainViewController: UIViewController {
   var hangMan = HangManImage()
   var allWords = [String]()
   var currentWord = Game()
-//  var usedLetters = [Character]()
+
   var wrongAnswers = 0
+ 
   
   @IBOutlet var rope: UIImageView!
   @IBOutlet var head: UIImageView!
@@ -24,15 +25,12 @@ class MainViewController: UIViewController {
   @IBOutlet var rightLeg: UIImageView!
   @IBOutlet var leftLeg: UIImageView!
   
-//  @IBAction func show(_ sender: Any) {
-//    hangMan.showBodyPart()
-//  }
+  @IBOutlet var scoreLable: UILabel!
+
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    hangMan = HangManImage(bodyParts: [rope, head, body, rightArm, leftArm, rightLeg, leftLeg])
-  
+
     if let wordsFileURL = Bundle.main.url(forResource: "words", withExtension: "txt") {
       if let wordsContent = try? String(contentsOf: wordsFileURL) {
         allWords = wordsContent.components(separatedBy: "\n")
@@ -61,20 +59,33 @@ class MainViewController: UIViewController {
   }
   
   func submit(_ answer: String) {
-    if answer.count == 1 && wrongAnswers < 7 {
+    if answer.count == 1 {
       if !currentWord.checkLetter(answer) {
         hangMan.showBodyPart()
-//      title = currentWord.addHint()
-        wrongAnswers += 1
+        if currentWord.gameOver() {
+          let ac = UIAlertController(title: "Game Over", message: nil, preferredStyle: .alert)
+          let action = UIAlertAction(title: "Ok", style: .default)
+          ac.addAction(action)
+          present(ac, animated: true)
+        }
+        
       } else {
-        title = currentWord.addHint()
+        if currentWord.gameWon() {
+          let ac = UIAlertController(title: "Congratulations", message: "You guessed the word", preferredStyle: .alert)
+          let action = UIAlertAction(title: "Ok", style: .default)
+          ac.addAction(action)
+          present(ac, animated: true)
+        }
       }
+      title = currentWord.addHint()
     }
   }
   
   @objc func startGame() {
+    hangMan = HangManImage(bodyParts: [rope, head, body, rightArm, leftArm, rightLeg, leftLeg])
     currentWord = Game(allWords.randomElement() ?? "No word found")
     title = currentWord.addHint()
+    scoreLable.text = "Score: \(currentWord.score)"
   }
 
 }

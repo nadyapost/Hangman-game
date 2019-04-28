@@ -26,7 +26,6 @@ class Game {
         wordWithHints += stringLetter
       }else {
         wordWithHints += "?"
-        wrongAnswers += 1
       }
     }
     return wordWithHints
@@ -37,11 +36,25 @@ class Game {
       enteredLetters.insert(charecter)
       return true
     } else {
+      wrongAnswers += 1
       return false
     }
   }
   
- 
+  func gameOver() -> Bool {
+    if wrongAnswers >= 7 {
+      return true
+    }else {
+    return false
+    }
+  }
+  
+  func gameWon() -> Bool {
+    if word == addHint() {
+     return true
+    }
+    return false
+  }
 
 }
 
