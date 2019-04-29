@@ -91,6 +91,7 @@ class MainViewController: UIViewController {
     
     title = currentWord.addHint()
     scoreLable.text = "Score: \(currentWord.score)"
+    self.navigationItem.rightBarButtonItem?.isEnabled = true
   }
 
 }
